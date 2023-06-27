@@ -1,5 +1,5 @@
 {
-  "name": "skedulog-BE",
+  "name": "skedulog-be",
   "version": "1.0.0",
   "main": "server.js",
   "license": "MIT",
@@ -11,10 +11,8 @@
     "@graphql-tools/merge": "^8.4.2",
     "@graphql-tools/schema": "^9.0.19",
     "@prisma/client": "^4.14.0",
-    "apollo-server-express": "^3.12.0",
-    "compression": "^1.7.4",
+    "apollo-server": "^3.12.0",
     "dotenv": "^16.0.3",
-    "express": "^4.18.2",
     "graphql": "^16.6.0",
     "nodemon": "^2.0.22",
     "prisma": "^4.14.0"
