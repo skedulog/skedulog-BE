@@ -2,6 +2,7 @@ import { gql } from "apollo-server";
 
 export default gql`
     scalar DateTime
+    scalar Date
 
     type Query {
         """
@@ -19,12 +20,12 @@ export default gql`
         """
         회원 생성
         """
-        createMember(username: String!, password: String!, fullName: String!): Member
+        createMember(username: String!, password: String!, fullName: String!, gender: String!, dateOfBirth: Date!): Member
 
         """
         회원정보 수정
         """
-        updateMember(id: Int!, password: String, fullName: String): Member
+        updateMember(id: Int!, password: String, fullName: String, gender: String, dateOfBirth: Date): Member
 
         """
         회원정보 삭제
@@ -55,6 +56,16 @@ export default gql`
         회원 이름
         """
         fullName: String!
+
+        """
+        회원 성별
+        """
+        gender: String!
+
+        """
+        회원 생년월일
+        """
+        dateOfBirth: Date!
 
         """
         회원가입 날짜

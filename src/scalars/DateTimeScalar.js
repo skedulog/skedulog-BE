@@ -2,19 +2,19 @@ const { GraphQLScalarType, Kind } = require('graphql');
 
 const formatDateTime = (datetime) => {
 
-    // prisma timezone issue로 인해 9시간 빼줌
-    // (db에서 받아올때 timezone 000Z로 받아와서 getDate시 한국 표준시로 9시간 더해짐)
-    datetime.setHours(datetime.getHours()-9);
+  // prisma timezone issue로 인해 9시간 빼줌
+  // (db에서 받아올때 timezone 000Z로 받아와서 getDate시 한국 표준시로 9시간 더해짐)
+  datetime.setHours(datetime.getHours()-9);
 
-    const year = datetime.getFullYear();
-    const month = String(datetime.getMonth() + 1).padStart(2, '0');
-    const day = String(datetime.getDate()).padStart(2, '0');
-    const hours = String(datetime.getHours()).padStart(2, '0');
-    const minutes = String(datetime.getMinutes()).padStart(2, '0');
-    const seconds = String(datetime.getSeconds()).padStart(2, '0');
-  
-    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-  }
+  const year = datetime.getFullYear();
+  const month = String(datetime.getMonth() + 1).padStart(2, '0');
+  const day = String(datetime.getDate()).padStart(2, '0');
+  const hours = String(datetime.getHours()).padStart(2, '0');
+  const minutes = String(datetime.getMinutes()).padStart(2, '0');
+  const seconds = String(datetime.getSeconds()).padStart(2, '0');
+
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+}
 
 const DATE_TIME_FORMAT = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/;
 

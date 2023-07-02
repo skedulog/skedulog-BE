@@ -11,11 +11,13 @@ datasource db {
 }
 
 model Member {
-  id        Int      @id @default(autoincrement())
-  username  String   @db.VarChar(50)
-  password  String   @db.VarChar(100)
-  fullName  String   @db.VarChar(50)
-  createdAt DateTime @default(dbgenerated("NOW()")) @db.DateTime
-  updatedAt DateTime @default(dbgenerated("NOW() ON UPDATE NOW()")) @db.DateTime
-  deleted   String   @default("N") @db.VarChar(1)
+  id          Int      @id @default(autoincrement())
+  username    String   @db.VarChar(50)
+  password    String   @db.VarChar(100)
+  fullName    String   @db.VarChar(50)
+  gender      String   @db.VarChar(10)
+  dateOfBirth String   @db.Date
+  createdAt   DateTime @default(dbgenerated("NOW()")) @db.DateTime
+  updatedAt   DateTime @default(dbgenerated("NOW() ON UPDATE NOW()")) @db.DateTime
+  deleted     String   @default("N") @db.VarChar(1)
 }
