@@ -2,20 +2,24 @@ import client from "../client";
 
 export default {
   Mutation: {
-    createMember: (_, { username, password, fullName }) => {
+    createMember: (_, { username, password, fullName, gender, dateOfBirth }) => {
       return client.Member.create({
         data: {
             username,
             password,
-            fullName
+            fullName,
+            gender,
+            dateOfBirth
         }
       })
     },
-    updateMember: (_, { id, password, fullName }) => {
+    updateMember: (_, { id, password, fullName, gender, dateOfBirth }) => {
       return client.Member.update({
         data: {
           password,
-          fullName
+          fullName,
+          gender,
+          dateOfBirth
         },
         where: {
           id
