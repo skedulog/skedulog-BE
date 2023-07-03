@@ -15,8 +15,8 @@ model Member {
   username    String   @db.VarChar(50)
   password    String   @db.VarChar(100)
   fullName    String   @db.VarChar(50)
-  gender      String   @db.VarChar(10)
-  dateOfBirth String   @db.Date
+  gender      String   @default("OTHER") @db.VarChar(10)
+  dateOfBirth String   @default("1900-01-01") @db.VarChar(10)
   createdAt   DateTime @default(dbgenerated("NOW()")) @db.DateTime
   updatedAt   DateTime @default(dbgenerated("NOW() ON UPDATE NOW()")) @db.DateTime
   deleted     String   @default("N") @db.VarChar(1)
