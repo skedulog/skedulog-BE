@@ -5,48 +5,36 @@ dotenv.config();
 
 const token = () => {
     return{
-        access(id){
-            return jwt.sign({id}, process.env.ACCESS_TOKEN_SECRET , {
-                expiresIn: "30m",
+        access(member) {
+            return jwt.sign({member}, process.env.ACCESS_TOKEN_SECRET , {
+                expiresIn: "1800s",
             });
         },
-        refresh(id){
-            return jwt.sign({id}, process.env.REFRESH_TOKEN_SECRET , {
+        refresh(member) {
+            return jwt.sign({member}, process.env.REFRESH_TOKEN_SECRET , {
                 expiresIn: "180 days",
             });
         },
-        issuance(token, res) {
+        issuance(token) {
             return jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
-                    if (err) res.sendStatus(403);
-                    const key = this.access(user.id);
-                    return key;
+                    const result = {};
+
+                    if (err) {
+                        result.ok = false;
+                        result.error = 'Error occurred';
+                    } else {
+                        result.ok = true;
+                        result.renewedToken = this.access(user.id);
+                    }
+
+                    return result;
                 }
             );
         }
     }
 }
 
-exports.authenticate = (req, res, next) => {
-    if (req.body.id === 'hello') {
-        req.authData = {
-            status : 200,
-            message : 'Correct User Information',
-            jwt:{
-                accessToken : token().access(req.body.id),
-                refreshToken : token().refresh(req.body.id)
-            }
-        };
-    } else {
-        req.authData = {
-            status : 400,
-            message : 'Incorrect User Information'
-        };
-    }
-
-    next();
-}
-
-exports.authenticateAccessToken = (req, res, next) => {
+exports.verify = (req, res, next) => {
     let authHeader = req.headers["authorization"];
     let token = authHeader && authHeader.split(" ")[1];
 
@@ -59,6 +47,13 @@ exports.authenticateAccessToken = (req, res, next) => {
     });
 }
 
-exports.renew = (refreshToken, res) => {
-    return token().issuance(refreshToken, res);
+exports.login = (member) => {
+    return {
+        accessToken : token().access(member),
+        refreshToken : token().refresh(member)
+    };
+}
+
+exports.renew = (refreshToken) => {
+    return token().issuance(refreshToken);
 }
