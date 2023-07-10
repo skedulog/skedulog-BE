@@ -24,7 +24,7 @@ const token = () => {
                         result.error = 'Error occurred';
                     } else {
                         result.ok = true;
-                        result.renewedToken = this.access(user.id);
+                        result.renewedToken = this.access(user.member);
                     }
 
                     return result;

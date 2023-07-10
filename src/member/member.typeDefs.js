@@ -8,7 +8,7 @@ export default gql`
         """
         회원 ID로 조회
         """
-        member(id: Int!): Member
+        member: Member
 
         """
         전체 회원 조회

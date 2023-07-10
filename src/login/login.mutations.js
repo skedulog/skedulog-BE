@@ -22,7 +22,12 @@ export default {
             }
 
             result.ok = true;
-            result.tokens = login(member);
+            result.tokens = login({
+                id: member.id,
+                username: member.username,
+                fullName: member.fullName,
+                deleted: member.deleted
+            });
 
             return JSON.stringify(result);
         },

@@ -12,16 +12,19 @@ dotenv.config();
 
 /* JWT 토큰 검사 미들웨어 */
 const authenticateToken = (req, _, next) => {
+  /* Preflight 요청 처리 */
   const method = req.method;
   if (method === 'OPTIONS') {
     return next();
   }
 
+  /* 로그인 필요 없는 요청 */
   const operationName = req.body.operationName;
   if (excludedOperations.includes(operationName)) {
     return next();
   }
 
+  /* 요청 header 에서 토큰 추출 */
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
   if (token && token !== 'null') {
@@ -66,7 +69,6 @@ const server = new ApolloServer({
       const err = req.err;
       throw new GraphQLError(err.message, { extensions: { http: { status: err.status, code: err.code, message: err.message } } })
     }
-
     return { user: req.user };
   },
   formatError: (err) => {
