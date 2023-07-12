@@ -33,6 +33,11 @@ export default gql`
         deleteMember: Boolean!
 
         """
+        아이디 중복 검사
+        """
+        checkUsernameDuplicacy(username: String!): Boolean!
+
+        """
         비밀번호 검사
         """
         passwordCheck(password: String!): Boolean!
