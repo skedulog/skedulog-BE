@@ -30,7 +30,7 @@ export default gql`
         """
         회원정보 삭제
         """
-        deleteMember(id: Int!): Boolean!
+        deleteMember: Boolean!
     }
 
     """
