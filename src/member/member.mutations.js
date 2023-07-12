@@ -26,7 +26,9 @@ export default {
         }
       })
     },
-    deleteMember: async (_, { id }) => {
+    deleteMember: async (_, __, context) => {
+      const id = context.user.member.id;
+
       const result = await client.Member.update({
         data: {
           deleted: 'Y',
