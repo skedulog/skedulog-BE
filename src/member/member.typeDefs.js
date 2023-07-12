@@ -31,6 +31,11 @@ export default gql`
         회원정보 삭제
         """
         deleteMember: Boolean!
+
+        """
+        비밀번호 검사
+        """
+        passwordCheck(password: String!): Boolean!
     }
 
     """

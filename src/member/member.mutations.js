@@ -40,5 +40,18 @@ export default {
 
       return result.deleted === 'Y';
     },
+    passwordCheck: async(_, { password }, context) => {
+      const username = context.user.member.username;
+
+      const result = await client.Member.findFirst({
+        where: {
+          deleted: 'N',
+          username,
+          password
+        }
+      })
+
+      return !!result;
+    }
   },
 };
