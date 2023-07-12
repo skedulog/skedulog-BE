@@ -40,6 +40,15 @@ export default {
 
       return result.deleted === 'Y';
     },
+    checkUsernameDuplicacy: async(_, { username }) => {
+      const result = await client.Member.findFirst({
+        where: {
+          username
+        }
+      })
+
+      return !!result;
+    },
     passwordCheck: async(_, { password }, context) => {
       const username = context.user.member.username;
 

@@ -2,5 +2,6 @@
     "IntrospectionQuery",
     "LogIn",
     "SignUp",
-    "Renew"
+    "Renew",
+    "CheckUsernameDuplicacy"
 ]
