@@ -17,12 +17,5 @@ export default {
           },
       });
     },
-    allMembers: () => {
-      return client.Member.findMany({
-        where: {
-          deleted: 'N',
-        },
-      })
-    },
   },
 };
