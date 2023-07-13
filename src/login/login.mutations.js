@@ -8,7 +8,6 @@ export default {
                 where: {
                     username,
                     password,
-                    deleted: 'N'
                 }
             })
 

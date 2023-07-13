@@ -19,5 +19,4 @@ model Member {
   dateOfBirth String   @default("1900-01-01") @db.VarChar(10)
   createdAt   DateTime @default(dbgenerated("NOW()")) @db.DateTime
   updatedAt   DateTime @default(dbgenerated("NOW() ON UPDATE NOW()")) @db.DateTime
-  deleted     String   @default("N") @db.VarChar(1)
 }
