@@ -1,3 +1,4 @@
+import { GraphQLError } from "graphql";
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 
@@ -20,8 +21,15 @@ const token = () => {
                     const result = {};
 
                     if (err) {
-                        result.ok = false;
-                        result.error = 'Error occurred';
+                        throw new GraphQLError('[renew] renew failed', { 
+                            extensions: { 
+                                http: { 
+                                    status: 401, 
+                                    code: 'INVALID_REFRESH_TOKEN', 
+                                    message: '[renew] \'refreshToken\' is invalid' 
+                                } 
+                            } 
+                        })
                     } else {
                         result.ok = true;
                         result.renewedToken = this.access(user.member);
