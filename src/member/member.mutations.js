@@ -29,16 +29,13 @@ export default {
     deleteMember: async (_, __, context) => {
       const id = context.user.member.id;
 
-      const result = await client.Member.update({
-        data: {
-          deleted: 'Y',
-        },
+      const result = await client.Member.delete({
         where: {
           id
         }
       })
 
-      return result.deleted === 'Y';
+      return !!result;
     },
     checkUsernameDuplicacy: async(_, { username }) => {
       const result = await client.Member.findFirst({
@@ -54,7 +51,6 @@ export default {
 
       const result = await client.Member.findFirst({
         where: {
-          deleted: 'N',
           username,
           password
         }

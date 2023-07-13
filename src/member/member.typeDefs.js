@@ -81,10 +81,5 @@ export default gql`
         회원정보 수정 날짜
         """
         updatedAt: DateTime!
-
-        """
-        삭제 여부 (Y: 삭제, N: 삭제 안 됨)
-        """
-        deleted: String!
     }
 `;

@@ -13,7 +13,6 @@ export default {
       return client.Member.findFirst({
           where: {
             id,
-            deleted: 'N',
           },
       });
     },
