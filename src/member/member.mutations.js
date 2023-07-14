@@ -153,7 +153,7 @@ export default {
       ]);
 
       if (validationResult) {
-        throw new GraphQLError('[createMember] validation failed', { extensions : { validationResult } });
+        throw new GraphQLError('[updateMember] validation failed', { extensions : { validationResult } });
       }
 
       return client.Member.update({
