@@ -85,7 +85,8 @@ export default {
       ]);
 
       if (validationResult) {
-        throw new GraphQLError('[createMember] validation failed', { extensions : { validationResult } });
+        const message = '[createMember] validation failed';
+        throw new GraphQLError(message, { extensions : { http: { status: 401, code: "VALIDATION_FAILED", message: message, result: validationResult } } });
       }
 
       return client.Member.create({
@@ -100,7 +101,15 @@ export default {
     },
 
     /** 회원 정보 수정 */
-    updateMember: (_, { id, password, fullName, gender, dateOfBirth }) => {
+    updateMember: (_, { id, password, fullName, gender, dateOfBirth }, context) => {
+
+      const tokenId = context.user.member.id;
+
+      if (id !== tokenId) {
+        console.log('id = ', typeof id, ' ', id, ' token = ', typeof tokenId, ' ', tokenId);
+        const message = "[updateMember] token does not match submitted memberId";
+        throw new GraphQLError(message, { extensions: { http: { status: 401, code: 'UNAUTHORIZED', message: message } } })
+      }
 
       const validationResult = validate([
         {
@@ -153,7 +162,8 @@ export default {
       ]);
 
       if (validationResult) {
-        throw new GraphQLError('[updateMember] validation failed', { extensions : { validationResult } });
+        const message = '[updateMember] validation failed';
+        throw new GraphQLError(message, { extensions : { http: { status: 401, code: "VALIDATION_FAILED", message: message, result: validationResult } } });
       }
 
       return client.Member.update({
