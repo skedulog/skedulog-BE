@@ -6,24 +6,24 @@ export default gql`
 
     type Query {
         """
-        회원 ID로 조회
+        토큰의 고유번호로 회원 정보 조회
         """
         member: Member
     }
 
     type Mutation {
         """
-        회원 생성
+        회원가입
         """
         createMember(username: String!, password: String!, fullName: String!, gender: String!, dateOfBirth: Date!): Member
 
         """
-        회원정보 수정
+        회원 정보 수정
         """
         updateMember(id: Int!, password: String, fullName: String, gender: String, dateOfBirth: Date): Member
 
         """
-        회원정보 삭제
+        회원 탈퇴
         """
         deleteMember: Boolean!
 
@@ -33,7 +33,7 @@ export default gql`
         checkUsernameDuplicacy(username: String!): Boolean!
 
         """
-        비밀번호 검사
+        토큰의 아이디로 비밀번호 검사
         """
         passwordCheck(password: String!): Boolean!
     }

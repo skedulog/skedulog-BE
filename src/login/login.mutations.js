@@ -3,6 +3,7 @@ import { login, renew } from '../jwt'
 
 export default {
     Mutation: {
+        /** 로그인 정보 확인 및 AccessToken & RefreshToken 발급 */
         login: async (_, { username, password }) => {
             const member = await client.Member.findFirst({
                 where: {
@@ -30,6 +31,7 @@ export default {
 
             return JSON.stringify(result);
         },
+        /** AccessToken 갱신 */
         renew: async(_, { refreshToken }) => {
             return JSON.stringify(renew(refreshToken));
         }
