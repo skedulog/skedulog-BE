@@ -10,7 +10,10 @@ export default {
       const validationResult = await validate([
         {
           object: username,
-          name: "username",
+          name: {
+            eng: "username",
+            kor: "아이디"
+          },
           type: "length",
           rules: {
             min: 6,
@@ -19,7 +22,10 @@ export default {
         },
         {
           object: username,
-          name: "username",
+          name: {
+            eng: "username",
+            kor: "아이디"
+          },
           required: true,
           type: "pattern",
           rules: {
@@ -28,7 +34,10 @@ export default {
         },
         {
           object: username,
-          name: "username",
+          name: {
+            eng: "username",
+            kor: "아이디"
+          },
           required: true,
           type: "duplicacy",
           rules: {
@@ -37,26 +46,22 @@ export default {
         },
         {
           object: password,
-          name: "password",
+          name: {
+            eng: "password",
+            kor: "비밀번호"
+          },
           required: true,
           type: "length",
           rules: {
-            min: 8,
-            max: 20
-          }
-        },
-        {
-          object: password,
-          name: "password",
-          required: true,
-          type: "pattern",
-          rules: {
-            expression: /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/
+            equals: 44
           }
         },
         {
           object: fullName,
-          name: "fullName",
+          name: {
+            eng: "fullName",
+            kor: "이름"
+          },
           required: true,
           type: "length",
           rules: {
@@ -65,7 +70,10 @@ export default {
         },
         {
           object: gender,
-          name: "gender",
+          name: {
+            eng: "gender",
+            kor: "성별"
+          },
           required: true,
           type: "options",
           rules: {
@@ -78,15 +86,18 @@ export default {
         },
         {
           object: dateOfBirth,
-          name: "dateOfBirth",
+          name: {
+            eng: "dateOfBirth",
+            kor: "생년월일"
+          },
           reuqired: true,
           type: "dateFormat"
         }
       ]);
 
       if (validationResult) {
-        const message = '[createMember] validation failed';
-        throw new GraphQLError(message, { extensions : { http: { status: 401, code: "VALIDATION_FAILED", message: message, result: validationResult } } });
+        const message = '[createMember] Validation failed';
+        throw new GraphQLError(message, { extensions : { http: { status: 401, code: "VALIDATION_FAILED", message: message, validationResult: validationResult } } });
       }
 
       return client.Member.create({
@@ -114,26 +125,22 @@ export default {
       const validationResult = validate([
         {
           object: password,
-          name: "password",
+          name: {
+            eng: "password",
+            kor: "비밀번호"
+          },
           required: true,
           type: "length",
           rules: {
-            min: 8,
-            max: 20
-          }
-        },
-        {
-          object: password,
-          name: "password",
-          required: true,
-          type: "pattern",
-          rules: {
-            expression: /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/
+            equals: 44
           }
         },
         {
           object: fullName,
-          name: "fullName",
+          name: {
+            eng: "fullName",
+            kor: "이름"
+          },
           required: true,
           type: "length",
           rules: {
@@ -142,7 +149,10 @@ export default {
         },
         {
           object: gender,
-          name: "gender",
+          name: {
+            eng: "gender",
+            kor: "성별"
+          },
           required: true,
           type: "options",
           rules: {
@@ -155,15 +165,18 @@ export default {
         },
         {
           object: dateOfBirth,
-          name: "dateOfBirth",
+          name: {
+            eng: "dateOfBirth",
+            kor: "생년월일"
+          },
           reuqired: true,
           type: "dateFormat"
         }
       ]);
 
       if (validationResult) {
-        const message = '[updateMember] validation failed';
-        throw new GraphQLError(message, { extensions : { http: { status: 401, code: "VALIDATION_FAILED", message: message, result: validationResult } } });
+        const message = '[updateMember] Validation failed';
+        throw new GraphQLError(message, { extensions : { http: { status: 401, code: "VALIDATION_FAILED", message: message, validationResult: validationResult } } });
       }
 
       return client.Member.update({

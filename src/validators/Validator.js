@@ -40,24 +40,30 @@ const dateRegExp = /^(?!0000)[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/
   
 const process = async(target) => {
     const object = target.object;
-    const name = target.name;
+    const engName = target.name.eng;
+    const korName = target.name.kor;
     const type = target.type;
 
     switch (type) {
         case "length" : {
             const min = target.rules.min;
             const max = target.rules.max;
+            const equals = target.rules.equals;
             const length = object.length;
 
-            if (!min && !max) {
-                throw new Error("Both \"min\" and \"max\" have not been provided")
+            if (!min && !max && !equals) {
+                throw new Error("At least one of \"min\", \"max\" and \"equals\" should be provided")
             }
 
-            if (min && length < min) {
-                return fail(name, "WRONG_INPUT", 'length of '+ name + ' should be ' + min + ' or longer');
-            }
-            if (max && length > max) {
-                return fail(name, "WRONG_INPUT", 'length of ' + name + ' should be ' + max + ' or shorter');
+            if (equals && length !== Number(equals)) {
+                return fail(engName, "WRONG_INPUT", korName + '은(는) ' + equals + '글자만 허용됩니다');
+            } else {
+                if (min && length < min) {
+                    return fail(engName, "WRONG_INPUT", korName + '은(는) ' + min + '글자 이상이어야 합니다.');
+                }
+                if (max && length > max) {
+                    return fail(engName, "WRONG_INPUT", korName + '은(는) ' + max + '글자 이하여야 합니다.');
+                }
             }
 
             return;
@@ -70,13 +76,13 @@ const process = async(target) => {
             }
 
             if (!expression.test(object)) { 
-                return fail(name, "WRONG_INPUT", name + ' is not in the right format');
+                return fail(engName, "WRONG_INPUT", korName + '의 형식을 확인해 주세요.');
             }
             return;
         } 
         case "dateFormat" : {
             if (!dateRegExp.test(object)) {
-                return fail(name, "WRONG_INPUT", name + ' is not in the right format');
+                return fail(engName, "WRONG_INPUT", korName + '의 형식을 확인해 주세요.');
             }
             return;
         }
@@ -89,7 +95,7 @@ const process = async(target) => {
 
             const result = await fn(object);
             if (result) {
-                return fail(name, "IS_DUPLICATE", name + ' cannot be duplicate');
+                return fail(engName, "IS_DUPLICATE", '이미 존재하는 ' + korName + '입니다.');
             }
             return;
         }
@@ -103,7 +109,7 @@ const process = async(target) => {
             }
 
             if (!options.includes(object)) {
-                return fail(name, "WRONG_INPUT", name + ' should be one of ' + options);
+                return fail(engName, "WRONG_INPUT", korName + '은(는) ' + options + ' 중 하나여야 합니다.');
             }
             return;
         }
