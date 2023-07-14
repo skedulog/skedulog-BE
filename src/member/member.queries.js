@@ -3,6 +3,7 @@ import client from "../client";
 
 export default {
   Query: {
+    /** 토큰의 고유번호로 회원 정보 조회 */
     member: (_, __, context) => {
       const id = context.user.member.id;
 
